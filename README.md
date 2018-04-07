@@ -19,4 +19,5 @@ http://wla.berkeley.edu/~cs61a/sp09/lectures/
 
 * Racket
 * Rackunit (`raco pkg install rackunit`)
+* Simply Scheme (`raco pkg install simply-scheme`)
 * Make
