@@ -1,19 +1,18 @@
 #lang racket/base
 
 (require rackunit)
+(require simply-scheme)
 
-(define solution
-  (/ (+ 5
-        4
-        (- 2
-           (- 3
-              (+ 6
-                 (/ 4
-                    5)))))
-     (* 3
-        (- 6
-           2)
-        (- 2
-           7))))
+(define (square n) 
+  (* n n))
 
-(check-equal? solution -37/150)
+(define (squares sequence) 
+  (if (empty? sequence)
+    `()
+    (sentence 
+      (square 
+        (first sequence)) 
+      (squares 
+        (butfirst sequence)))))
+
+(check-equal? (squares `(2 3 4 5)) `(4 9 16 25))
