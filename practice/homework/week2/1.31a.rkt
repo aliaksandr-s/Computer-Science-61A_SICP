@@ -21,8 +21,11 @@
       (/ (+ n 2) (+ n 1)) 
       (/ (+ n 1) (+ n 2))))
 
-(* (product pi-term 1 inc 6) 4)
+(check-equal?
+  (fact 5)
+  120)
 
 (check-equal?
- (fact 5)
- 120)
+  (* (product pi-term 1 inc 6) 4)
+  4096/1225)
+
