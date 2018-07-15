@@ -3,6 +3,9 @@
 (require rackunit)
 (require simply-scheme)
 (require "./best-total.rkt")
+(require racket/trace)
+
+(provide twenty-one)
 
 (define (twenty-one strategy)
   (define (play-dealer customer-hand dealer-hand-so-far rest-of-deck)
@@ -25,6 +28,9 @@
 	   (play-dealer customer-hand-so-far
 			(se dealer-up-card (first rest-of-deck))
 			(bf rest-of-deck)))))
+
+	;;; (trace play-customer)
+	;;; (trace play-dealer)
 
   (let ((deck (make-deck)))
     (play-customer (se (first deck) (first (bf deck)))
