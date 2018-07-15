@@ -62,9 +62,11 @@
   (iter (bf hand) (first hand) 0))
 
 (check-equal? (best-total `(8S AD)) 19)
+(check-equal? (best-total `(10S AD)) 21)
 (check-equal? (best-total `(8S 5H AD)) 14)
 (check-equal? (best-total `(9H AS AD)) 21)
 (check-equal? (best-total `(AD AS)) 12)
+(check-equal? (best-total `(AD)) 11)
 
 
 
