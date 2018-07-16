@@ -2,7 +2,6 @@
 
 (require rackunit)
 (require simply-scheme)
-(require "./best-total.rkt")
 (require "./stop-at.rkt")
 
 (provide stop-at-17)
