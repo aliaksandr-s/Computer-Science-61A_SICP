@@ -16,8 +16,11 @@ http://wla.berkeley.edu/~cs61a/sp09/lectures/
 ## Files for Projects:
 http://inst.eecs.berkeley.edu/~cs61a/reader/vol1.html
 
-### Requirements
+## Simply Scheme docs
+https://www.hashcollision.org/simply-scheme/index.html
 
+
+### Requirements
 * Racket
 * Rackunit (`raco pkg install rackunit`)
 * Simply Scheme (`raco pkg install simply-scheme`)
