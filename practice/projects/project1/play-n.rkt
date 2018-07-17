@@ -7,15 +7,18 @@
 (require "./twenty-one.rkt")
 (require "./dealer-sensitive.rkt")
 (require "./valentine.rkt")
+(require "./majority.rkt")
 
 (define (play-n strategy n)
   (if (= n 0)
     0
     (+ (twenty-one strategy) (play-n strategy (- n 1)))))
 
-(play-n stop-at-17 500)
-(play-n dealer-sensitive 500)
-(play-n valentine 500)
+(play-n stop-at-17 50)
+(play-n dealer-sensitive 50)
+(play-n valentine 50)
+
+(play-n (majority stop-at-17 dealer-sensitive valentine) 10)
 
 ;;; (define (loop f n)
 ;;;   (if (= n 0)
