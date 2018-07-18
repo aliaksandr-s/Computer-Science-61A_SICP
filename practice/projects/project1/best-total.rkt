@@ -31,19 +31,19 @@
 (check-equal? (get-ace-value 15) 1)
 
 
-(define (isAce card-value)
+(define (ace? card-value)
   (if (equal? (first card-value) 'A)
       #t
       #f))
 
-(check-equal? (isAce 'AD) #t)
-(check-equal? (isAce '10C) #f)
-(check-equal? (isAce 'QC) #f)
-(check-equal? (isAce '2H) #f)
+(check-equal? (ace? 'AD) #t)
+(check-equal? (ace? '10C) #f)
+(check-equal? (ace? 'QC) #f)
+(check-equal? (ace? '2H) #f)
 
 
 (define (get-value card total)
-  (if (isAce card)
+  (if (ace? card)
       (get-ace-value total)
       (get-simple-value card)))
 
