@@ -8,6 +8,7 @@
 (require "./dealer-sensitive.rkt")
 (require "./valentine.rkt")
 (require "./majority.rkt")
+(require "./reckless.rkt")
 
 (define (play-n strategy n)
   (if (= n 0)
@@ -17,6 +18,7 @@
 (play-n stop-at-17 50)
 (play-n dealer-sensitive 50)
 (play-n valentine 50)
+(play-n (reckless valentine) 50)
 
 (play-n (majority stop-at-17 dealer-sensitive valentine) 10)
 
