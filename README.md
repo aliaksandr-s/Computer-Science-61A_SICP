@@ -15,6 +15,7 @@ http://wla.berkeley.edu/~cs61a/sp09/lectures/
 
 ## Files for Projects:
 http://inst.eecs.berkeley.edu/~cs61a/reader/vol1.html
+https://inst.eecs.berkeley.edu/~cs61a/sp09/library/
 
 ## Simply Scheme docs
 https://www.hashcollision.org/simply-scheme/index.html
