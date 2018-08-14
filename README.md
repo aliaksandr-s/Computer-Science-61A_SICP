@@ -26,4 +26,7 @@ https://www.hashcollision.org/simply-scheme/index.html
 * Racket
 * Rackunit (`raco pkg install rackunit`)
 * Simply Scheme (`raco pkg install simply-scheme`)
+* Sicp package 
+https://planet.racket-lang.org/display.ss?package=sicp.plt&owner=soegaard
 * Make
+
