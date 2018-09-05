@@ -4,6 +4,8 @@
 (require racket/trace)
 (require "./trees.rkt")
 
+(provide max-of-tree)
+
 (define (max-of-tree tree)
   (if (null? (children tree))
       (datum tree)
@@ -13,9 +15,6 @@
   (if (null? (cdr forest))
       (max-of-tree (car forest))
       (max (max-of-tree (car forest)) (max-of-forest (cdr forest)))))
-
-(trace max-of-tree)
-(trace max-of-forest)
 
 (define t1
   (make-tree 1
