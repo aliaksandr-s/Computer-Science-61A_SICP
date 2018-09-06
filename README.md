@@ -29,4 +29,3 @@ https://www.hashcollision.org/simply-scheme/index.html
 * Sicp package 
 https://planet.racket-lang.org/display.ss?package=sicp.plt&owner=soegaard
 * Make
-
