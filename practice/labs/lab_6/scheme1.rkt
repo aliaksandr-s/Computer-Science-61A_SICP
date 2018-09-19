@@ -123,12 +123,12 @@
 (define lambda-exp? (exp-checker 'lambda))
 (define and-exp? (exp-checker 'and))
 
-(trace constant?)
-(trace exp-checker)
-(trace quote-exp?)
-(trace if-exp?)
-(trace lambda-exp?)
-(trace and-exp?)
+;;; (trace constant?)
+;;; (trace exp-checker)
+;;; (trace quote-exp?)
+;;; (trace if-exp?)
+;;; (trace lambda-exp?)
+;;; (trace and-exp?)
 
 ;; SUBSTITUTE substitutes actual arguments for *free* references to the
 ;; corresponding formal parameters.  For example, given the expression
@@ -204,7 +204,7 @@
         ((eq? name (car params)) (maybe-quote (car args)))
         (else (lookup name (cdr params) (cdr args)))))
 
-(trace lookup)
+;;; (trace lookup)
 
 (define (maybe-quote value)
   (cond ((lambda-exp? value) value)
@@ -212,7 +212,7 @@
 	((procedure? value) value)	; real Scheme primitive procedure
 	(else (list 'quote value))))
 
-(trace maybe-quote)
+;;; (trace maybe-quote)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
