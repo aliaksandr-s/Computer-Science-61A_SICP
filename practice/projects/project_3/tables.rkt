@@ -7,6 +7,8 @@
 (require rackunit)
 (require rnrs/mutable-pairs-6)
 
+(provide (all-defined-out))
+
 (define (lookup key table)
   (let ((record (assoc key (cdr table))))
     (if (not record)

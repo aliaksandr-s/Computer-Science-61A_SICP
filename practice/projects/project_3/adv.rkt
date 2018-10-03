@@ -16,6 +16,8 @@
                 [exit-procs '()])
     (super-new)
     (define/public (get-name) name)
+    (define/public (get-things) things)
+    (define/public (get-people) people)
     (define/public (type) 'place)
     (define/public (neighbors) (map cdr directions-and-neighbors))
     (define/public (exits) (map car directions-and-neighbors))
@@ -76,16 +78,18 @@
     (send place enter this)
     (define/public (get-name) name)
     (define/public (type) 'person)
+    (define/public (get-possessions) possessions)
+    (define/public (get-place) place)
     (define/public (look-around)
-      (map (lambda (obj) (send obj name))
+      (map (lambda (obj) (send obj get-name))
 	           (filter (lambda (thing) (not (eq? thing this)))
-		           (append (send place things) (send place people)))))
+		           (append (send place get-things) (send place get-people)))))
     (define/public (take thing)
       (cond ((not (thing? thing)) 
               (error "Not a thing" thing))
-	          ((not (memq thing (send place things)))
+	          ((not (memq thing (send place get-things)))
 	            (error "Thing taken not at this place"
-		          (list (send place name) thing)))
+		          (list (send place get-name) thing)))
 	          ((memq thing possessions) 
               (error "You already have it!"))
 	          (else
@@ -96,11 +100,11 @@
               (for-each
                 (lambda (pers)
                   (when (and (not (eq? pers this)) ; ignore myself
-                    (memq thing (send pers possessions)))
+                             (memq thing (send pers get-possessions)))
                     (begin
                       (send pers lose thing)
                       (have-fit pers))))
-                (send place people))
+                (send place get-people))
                   
               (send thing change-possessor this)
               'taken)))
@@ -119,20 +123,20 @@
         (else
           (send place exit this)
           (announce-move name place new-place)
-          (for-each
-            (lambda (p)
-            (send place gone p)
-            (send new-place appear p))
-                possessions)
-              (set! place new-place)
-              (send new-place enter this))))) ))
+          (for-each (lambda (p)
+                            (send place gone p)
+                            (send new-place appear p))
+                    possessions)
+          (set! place new-place)
+          (send new-place enter this))))) ))
 
 
 (define thing%
   (class object%
     (init-field name
-                [possessor '()])
+                [possessor 'no-one])
     (super-new)
+    (define/public (get-possessor) possessor)
     (define/public (get-name) name)
     (define/public (type) 'thing)
     (define/public (change-possessor new-possessor) 
@@ -203,7 +207,7 @@
   (newline)
   (display name)
   (display " took ")
-  (display (send thing name))
+  (display (send thing get-name))
   (newline))
 
 (define (announce-move name old-place new-place)
@@ -233,9 +237,9 @@
 	(else (cons (car stuff) (delete thing (cdr stuff)))) ))
 
 (define (person? obj)
-  (and (procedure? obj)
+  (and (object? obj)
        (member? (send obj type) '(person police thief))))
 
 (define (thing? obj)
-  (and (procedure? obj)
+  (and (object? obj)
        (eq? (send obj type) 'thing)))
