@@ -58,7 +58,14 @@
 ;;; (define nasty (new thief 'nasty sproul-plaza)) TODO: uncoment when thief is implemented
 
 (define (sproul-hall-exit)
-   (error "You can check out any time you'd like, but you can never leave"))
+  (define (sproul-hall-exit-iter counter old-proc)
+    (define sproul-hall-exit-inner (lambda () 
+      (sproul-hall-exit-iter (+ counter 1) sproul-hall-exit-inner)))
+    (send s-h delete-exit-procedure old-proc)
+    (send s-h add-exit-procedure sproul-hall-exit-inner)
+    (when (< counter 3) 
+          (error "You can check out any time you'd like, but you can never leave")))
+  (sproul-hall-exit-iter 0 sproul-hall-exit))
 
 (define (bh-office-exit)
   (print "What's your favorite programming language?")
@@ -69,19 +76,19 @@
     
 
 (send s-h add-entry-procedure
- (lambda () (print "Miles and miles of students are waiting in line...")))
+  (lambda () (println "Miles and miles of students are waiting in line...")))
 (send s-h add-exit-procedure sproul-hall-exit)
 (send BH-Office add-exit-procedure bh-office-exit)
 (send Noahs add-entry-procedure
- (lambda () (print "Would you like lox with it?")))
+  (lambda () (println "Would you like lox with it?")))
 (send Noahs add-exit-procedure
- (lambda () (print "How about a cinnamon raisin bagel for dessert?")))
+  (lambda () (println "How about a cinnamon raisin bagel for dessert?")))
 (send Telegraph-Ave add-entry-procedure
- (lambda () (print "There are tie-dyed shirts as far as you can see...")))
+  (lambda () (println "There are tie-dyed shirts as far as you can see...")))
 (send 61A-Lab add-entry-procedure
- (lambda () (print "The computers seem to be down")))
+  (lambda () (println "The computers seem to be down")))
 (send 61A-Lab add-exit-procedure
- (lambda () (print "The workstations come back to life just in time.")))
+  (lambda () (println "The workstations come back to life just in time.")))
 
 ;; Some things.
 
@@ -90,3 +97,10 @@
 
 (define coffee (new thing% [name 'coffee]))
 (send Intermezzo appear coffee)
+
+;;;;
+;;; (define Alex (new person% [name 'Alex] [place s-h]))
+;;; (send s-h exit Alex)
+;;; (send s-h get-exit-procs)
+;;; (send s-h exit Alex)
+;;; (send s-h exit Alex)

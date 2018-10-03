@@ -18,6 +18,7 @@
     (define/public (get-name) name)
     (define/public (get-things) things)
     (define/public (get-people) people)
+    (define/public (get-exit-procs) exit-procs)
     (define/public (type) 'place)
     (define/public (neighbors) (map cdr directions-and-neighbors))
     (define/public (exits) (map car directions-and-neighbors))
