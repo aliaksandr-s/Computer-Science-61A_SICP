@@ -4,9 +4,13 @@
 (require simply-scheme)
 (require racket/trace)
 
-(require "./adv.rkt")
-(require "./tables.rkt")
-(require "./adv-world.rkt")
+(require "./game-engine/tables.rkt")
+(require "./game-engine/utils.rkt")
+(require "./game-engine/person.rkt")
+(require "./game-engine/place.rkt")
+(require "./game-engine/thing.rkt")
+(require "./game-engine/adv-world.rkt")
+
 
 (define Dormitory (new place% [name 'Dormitory]))
 (define Locked-place (new locked-place% [name 'Locked-place]))

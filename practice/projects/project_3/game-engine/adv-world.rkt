@@ -10,7 +10,10 @@
 (require simply-scheme)
 (require racket/trace)
 
-(require "./adv.rkt")
+(require "./utils.rkt")
+(require "./person.rkt")
+(require "./place.rkt")
+(require "./thing.rkt")
 
 (provide (all-defined-out))
 
