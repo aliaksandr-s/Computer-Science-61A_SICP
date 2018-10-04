@@ -37,6 +37,7 @@
 	          (error "Person already in this place" (list name new-person)))
       (set! people (cons new-person people))
       (for-each (lambda (proc) (proc)) entry-procs)
+      (for-each (lambda (person) (send person notice new-person)) (delete new-person people))
       'appeared)
     (define/public (gone thing)
       (when (not (memq thing things))
@@ -142,14 +143,6 @@
     (define/public (type) 'thing)
     (define/public (change-possessor new-possessor) 
       (set! possessor new-possessor)) ))
-
-;;; (define soda (new place% [name 'Soda]))
-;;; (send soda appear 'something)
-;;; (define Brian (new person% [name 'Brian] [place soda]))
-;;; (send soda enter Brian)
-;;; (send Brian exits)
-;;; (send soda appear 'something)
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Implementation of thieves for part two
