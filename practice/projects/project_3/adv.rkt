@@ -32,9 +32,12 @@
 	          (error "Thing already in this place" (list name new-thing)))
       (set! things (cons new-thing things))
       'appeared)
+    (define/public (may-enter? person) #t)
     (define/public (enter new-person)
       (when (memq new-person people)
 	          (error "Person already in this place" (list name new-person)))
+      (when (not (send this may-enter? new-person))
+            (error "Place is locked. You can't enter"))
       (set! people (cons new-person people))
       (for-each (lambda (proc) (proc)) entry-procs)
       (for-each (lambda (person) (send person notice new-person)) (delete new-person people))
@@ -70,6 +73,15 @@
       (set! exit-procs '())
       (set! entry-procs '())
       'cleared) ))
+
+(define locked-place%
+  (class place%
+    (init-field [locked? #t])
+    (super-new)
+    (define/override (may-enter? person) (not locked?))
+    (define/public (unlock) 
+      (set! locked? #f)
+      'unlocked) ))
 
 (define person%
   (class object%
@@ -120,7 +132,8 @@
     (define/public (notice person) (send this talk))
     (define/public (go direction)
       (let ((new-place (send place look-in direction)))
-        (cond ((null? new-place)
+        (cond ((or (null? new-place) 
+                   (not (send new-place may-enter? this)))
               (error "Can't go" direction))
         (else
           (send place exit this)
