@@ -26,3 +26,18 @@
     (init-field sn)
     (define/public (get-sn) sn)
     (super-new)))
+
+(define laptop%
+  (class thing%
+    (super-new)
+    (inherit-field possessor)
+    (define/public (connect password)
+      (when (eq? possessor 'no-one)
+            (error "A laptop should have a possessor to connect"))
+      (let ([hotspot (send possessor get-place)]) 
+           (send hotspot connect this password)))
+    (define/public (surf url) 
+      (when (eq? possessor 'no-one)
+            (error "A laptop should have a possessor to connect"))
+      (let ([hotspot (send possessor get-place)]) 
+           (send hotspot surf this url))) ))

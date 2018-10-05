@@ -73,6 +73,8 @@
 (define (whereis person)
   (send (send person get-place) get-name))
 
+(define (get-name obj) (send obj get-name))
+
 (define (owner thing)
   (let ([possessor (send thing get-possessor)])
     (if (object? possessor) 

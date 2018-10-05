@@ -115,3 +115,27 @@
           (send owner lose ticket)
           (send owner take a-car)
           (insert! (send ticket get-sn) #f ticket-table))) )))
+
+(define hotspot%
+  (class place%
+    (super-new)
+    (init-field password
+                [connected-laptops '()])
+    (inherit-field things)
+    (define/override (gone laptop)
+      (super gone laptop)
+      (set! connected-laptops (delete laptop connected-laptops)))
+    (define/public (get-connected-laptops) connected-laptops)
+    (define/public (connect laptop connect-password)
+      (when (not (memq laptop things))
+            (error "Laptop shoud be in a hotstop"))
+      (when (not (eq? password connect-password))
+            (error "Password is not correct"))
+      (when (memq laptop connected-laptops)
+            (error "Laptop is already connected"))
+      (set! connected-laptops 
+            (cons laptop connected-laptops)))
+    (define/public (surf laptop url)
+      (when (not (memq laptop connected-laptops))
+            (error "No connection"))
+      (system (string-append "firefox " url))) ))
