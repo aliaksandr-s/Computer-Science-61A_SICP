@@ -6,12 +6,13 @@
 
 (require "./tables.rkt")
 (require "./utils.rkt")
+(require "./basic-object.rkt")
 (require "./thing.rkt")
 
 (provide (all-defined-out))
 
 (define place%
-  (class object%
+  (class basic-object%
     (init-field name
                 [directions-and-neighbors '()]
                 [things '()]

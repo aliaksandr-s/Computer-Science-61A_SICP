@@ -5,11 +5,12 @@
 (require racket/trace)
 
 (require "./utils.rkt")
+(require "./basic-object.rkt")
 
 (provide (all-defined-out))
 
 (define thing%
-  (class object%
+  (class basic-object%
     (init-field name
                 [possessor 'no-one])
     (super-new)
