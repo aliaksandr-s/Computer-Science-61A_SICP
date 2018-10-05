@@ -2,7 +2,6 @@
 ;; Utility procedures
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; this next procedure is useful for moving around
 
 #lang racket
 
@@ -12,6 +11,7 @@
 
 (provide (all-defined-out))
 
+;;; this next procedure is useful for moving around
 (define (move-loop who)
   (newline)
   (print (send who exits))
@@ -62,12 +62,13 @@
 	(else (cons (car stuff) (delete thing (cdr stuff)))) ))
 
 (define (person? obj)
-  (and (object? obj)
-       (member? (send obj type) '(person police thief))))
+  (send obj person?))
 
 (define (thing? obj)
-  (and (object? obj)
-       (eq? (send obj type) 'thing)))
+  (send obj thing?))
+
+(define (place? obj)
+  (send obj place?))
 
 (define (whereis person)
   (send (send person get-place) get-name))

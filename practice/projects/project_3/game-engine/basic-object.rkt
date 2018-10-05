@@ -13,6 +13,9 @@
   (class object%
     (init-field [properties (make-table)])
     (super-new)
+    (define/public (person?) #f)
+    (define/public (place?) #f)
+    (define/public (thing?) #f)
     (define/public (put key val)
       (insert! key val properties))
     (define/public (get key)

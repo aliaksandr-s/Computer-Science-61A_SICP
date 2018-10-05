@@ -20,6 +20,7 @@
     (define/public (type) 'person)
     (define/public (get-possessions) possessions)
     (define/public (get-place) place)
+    (define/override (person?) #t)
     (define/public (look-around)
       (map (lambda (obj) (send obj get-name))
 	           (filter (lambda (thing) (not (eq? thing this)))

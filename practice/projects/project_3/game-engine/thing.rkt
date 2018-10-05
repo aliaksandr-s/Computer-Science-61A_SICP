@@ -17,6 +17,7 @@
     (define/public (get-possessor) possessor)
     (define/public (get-name) name)
     (define/public (type) 'thing)
+    (define/override (thing?) #t)
     (define/public (change-possessor new-possessor) 
       (set! possessor new-possessor)) ))
 

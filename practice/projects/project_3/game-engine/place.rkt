@@ -25,6 +25,7 @@
     (define/public (get-people) people)
     (define/public (get-exit-procs) exit-procs)
     (define/public (type) 'place)
+    (define/override (place?) #t)
     (define/public (neighbors) (map cdr directions-and-neighbors))
     (define/public (exits) (map car directions-and-neighbors))
     (define/public (look-in direction)
