@@ -47,6 +47,14 @@
                   
               (send thing change-possessor this)
               'taken)))
+    (define/public (take-all) 
+      (let ([things (send place get-things)]) 
+           (define available-things 
+                   (filter (lambda (thing) 
+                           (eq? (send thing get-possessor) 'no-one)) 
+                   things))
+           (for-each (lambda (thing) (send this take thing)) 
+                     available-things) ))
     (define/public (lose thing)
       (set! possessions (delete thing possessions))
       (send thing change-possessor 'no-one)
