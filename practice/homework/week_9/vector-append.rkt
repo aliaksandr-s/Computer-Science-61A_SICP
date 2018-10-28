@@ -1,6 +1,7 @@
 #lang racket
 
 (require rackunit)
+(provide vector-append)
 
 (define (vector-append v1 v2)
   (define len (+ (vector-length v1) 
