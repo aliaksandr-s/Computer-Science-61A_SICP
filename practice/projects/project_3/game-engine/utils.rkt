@@ -46,6 +46,16 @@
   (display (send new-place get-name))
   (newline))
 
+(define (announce-transportation name old-place new-place)
+  (newline)
+  (newline)
+  (display name)
+  (display " has been moved from ")
+  (display (send old-place get-name))
+  (display " to ")
+  (display (send new-place get-name))
+  (newline))
+
 (define (have-fit p)
   (newline)
   (display "Yaaah! ")

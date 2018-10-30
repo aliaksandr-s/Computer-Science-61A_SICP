@@ -78,7 +78,16 @@
                             (send new-place appear p))
                     possessions)
           (set! place new-place)
-          (send new-place enter this))))) ))
+          (send new-place enter this) ))))
+    (define/public (go-directly-to new-place) 
+      (send place exit this)
+      (announce-transportation name place new-place)
+      (for-each (lambda (p)
+                        (send place gone p)
+                        (send new-place appear p))
+                possessions)
+      (set! place new-place)
+      (send new-place enter this)) ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Implementation of thieves for part two
@@ -108,4 +117,4 @@
 	      (begin
 	       (send this take (car food-things))
 	       (set! behavior 'run)
-	       (send this notice person)) )))) )
+	       (send this notice person)) )))) ))
