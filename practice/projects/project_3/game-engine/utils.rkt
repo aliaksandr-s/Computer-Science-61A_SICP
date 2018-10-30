@@ -94,3 +94,6 @@
 (define (owner-things owner) 
           (map (lambda (thing) (send thing get-name)) 
         (send owner get-possessions)))
+
+(define (money-left person)
+  (send person get-money))

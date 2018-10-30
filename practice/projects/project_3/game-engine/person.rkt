@@ -13,14 +13,22 @@
   (class basic-object%
     (init-field name place
                 [possessions '()]
-                [saying ""])
+                [saying ""]
+                [money 100])
     (super-new)
     (send place enter this)
     (define/public (get-name) name)
     (define/public (type) 'person)
     (define/public (get-possessions) possessions)
     (define/public (get-place) place)
+    (define/public (get-money) money)
     (define/override (person?) #t)
+    (define/public (add-money amount) 
+      (set! money (+ money amount)) #t)
+    (define/public (pay-money amount) 
+      (if (> amount money) 
+          #f 
+          (begin (set! money (- money amount)) #t)))
     (define/public (look-around)
       (map (lambda (obj) (send obj get-name))
 	           (filter (lambda (thing) (not (eq? thing this)))
@@ -107,14 +115,14 @@
     (define/override (type) 'thief)
     (define/override (notice person)
       (if (eq? behavior 'run)
-	        (send this go (pick-random (send place exits)))
-	    (let ((food-things
-	        (filter (lambda (thing)
-			 (and (edible? thing)
-			      (not (eq? (send thing possessor) this))))
-		       (send place things))))
-	  (when (not (null? food-things))
-	      (begin
-	       (send this take (car food-things))
-	       (set! behavior 'run)
-	       (send this notice person)) )))) ))
+          (send this go (pick-random (send place exits)))
+          (let ((food-things
+                 (filter (lambda (thing)
+                           (and (edible? thing)
+                                (not (eq? (send thing possessor) this))))
+                         (send place things))))
+            (when (not (null? food-things))
+              (begin
+                (send this take (car food-things))
+                (set! behavior 'run)
+                (send this notice person)) )))) ))
