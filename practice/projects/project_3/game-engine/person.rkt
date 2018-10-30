@@ -84,29 +84,28 @@
 ;;; Implementation of thieves for part two
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; (define *foods* '(pizza potstickers coffee))
+(define *foods* '(pizza potstickers coffee))
 
-;;; (define (edible? thing)
-;;;   (member? (send thing name) *foods*))
+(define (edible? thing)
+  (member? (send thing name) *foods*))
 
-;;; TODO: edit later to make it work with racket
-
-;;; (define-class (thief name initial-place)
-;;;   (parent (person name initial-place))
-;;;   (instance-vars
-;;;    (behavior 'steal))
-;;;   (method (type) 'thief)
-
-;;;   (method (notice person)
-;;;     (if (eq? behavior 'run)
-;;; 	(ask self 'go (pick-random (ask (usual 'place) 'exits)))
-;;; 	(let ((food-things
-;;; 	       (filter (lambda (thing)
-;;; 			 (and (edible? thing)
-;;; 			      (not (eq? (ask thing 'possessor) self))))
-;;; 		       (ask (usual 'place) 'things))))
-;;; 	  (if (not (null? food-things))
-;;; 	      (begin
-;;; 	       (ask self 'take (car food-things))
-;;; 	       (set! behavior 'run)
-;;; 	       (ask self 'notice person)) )))) )
+(define thief%
+  (class person%
+    (super-new)
+    (init-field initial-place
+                [behavior 'steal])
+    (inherit-field place)
+    (define/override (type) 'thief)
+    (define/override (notice person)
+      (if (eq? behavior 'run)
+	        (send this go (pick-random (send place exits)))
+	    (let ((food-things
+	        (filter (lambda (thing)
+			 (and (edible? thing)
+			      (not (eq? (send thing possessor) this))))
+		       (send place things))))
+	  (when (not (null? food-things))
+	      (begin
+	       (send this take (car food-things))
+	       (set! behavior 'run)
+	       (send this notice person)) )))) )
