@@ -14,7 +14,8 @@
     (init-field name place
                 [possessions '()]
                 [saying ""]
-                [money 100])
+                [money 100]
+                [strength 10])
     (super-new)
     (send place enter this)
     (define/public (get-name) name)
@@ -22,7 +23,14 @@
     (define/public (get-possessions) possessions)
     (define/public (get-place) place)
     (define/public (get-money) money)
+    (define/public (get-strength) strength)
     (define/override (person?) #t)
+    (define/public (eat) 
+      (define food (filter (lambda (thing) (send thing edible?)) possessions))
+      (define additional-calories (foldr + 0 (map (lambda (x) (send x get-calories)) food)))
+      (set! strength (+ strength additional-calories))
+      (set! possessions (filter (lambda (thing) (not (send thing edible?))) possessions))
+      (for-each (lambda (f) (send place gone f)) food))
     (define/public (add-money amount) 
       (set! money (+ money amount)) #t)
     (define/public (pay-money amount) 

@@ -100,3 +100,10 @@
 
 (define (edible? thing)
   (send thing edible?))
+
+(define (strength person)
+  (send person get-strength))
+
+(define (place-things place)
+  (map (lambda (thing) (send thing get-name))
+  (send place get-things) ))
