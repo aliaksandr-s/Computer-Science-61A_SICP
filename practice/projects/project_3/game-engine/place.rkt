@@ -155,4 +155,5 @@
       (if (< (send person get-money) price) 
           #f 
           (begin (send person pay-money price)
+                 (send this appear food-instance)
                  food-instance))) ))
