@@ -26,8 +26,8 @@
 
 (define box (new thing% [name 'box]))
 (define glue (new thing% [name 'glue]))
-(define bagel-2 (new bagel% [name 'b] [calories 10]))
-(define bagel-3 (new bagel% [name 'b] [calories 10]))
+(define bagel-2 (new bagel% [name ""] [calories ""]))
+(define bagel-3 (new bagel% [name ""] [calories ""]))
 
 (send Dormitory appear box)
 (send Dormitory appear glue)

@@ -10,11 +10,18 @@
 (require "./game-engine/place.rkt")
 (require "./game-engine/thing.rkt")
 
+(define Noahs (new restaurant% [name 'Noahs] [food bagel%] [price 0.50]))
+
 (define Home (new place% [name 'Home]))
 (define Alex (new person% [name 'Alex] [place Home]))
 
-(check-equal? (money-left Alex) 100)
-(check-equal? (send Alex pay-money 200) #f)
-(check-equal? (send Alex pay-money 50) #t)
-(check-equal? (send Alex add-money 50) #t)
-(check-equal? (money-left Alex) 100)
+(check-equal? (send Noahs menu) '((bagel . 0.50)))
+(check-exn exn:fail? (lambda () (send Noahs sell Alex 'pizza)))
+
+(check-equal? (send Alex pay-money 100) #t)
+(check-equal? (money-left Alex) 0)
+(check-equal? (send Noahs sell Alex 'bagel) #f)
+
+(send Alex add-money 50)
+(check-equal? (send (send Noahs sell Alex 'bagel) get-name) 'bagel)
+(check-equal? (money-left Alex) 49.5)

@@ -139,3 +139,20 @@
       (when (not (memq laptop connected-laptops))
             (error "No connection"))
       (system (string-append "firefox " url))) ))
+
+(define restaurant%
+  (class place%
+    (super-new)
+    (init-field food price)
+    (define/public (menu) 
+      (define food-instance (new food [name ""] [calories ""]) ) 
+      (list (cons (send food-instance get-name) 
+                  price)))
+    (define/public (sell person food-name)
+      (define food-instance (new food [name ""] [calories ""]) )
+      (when (not (equal? food-name (send food-instance get-name)))
+        (error "Sorry we don't sell that food")) 
+      (if (< (send person get-money) price) 
+          #f 
+          (begin (send person pay-money price)
+                 food-instance))) ))

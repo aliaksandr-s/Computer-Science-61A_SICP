@@ -51,7 +51,8 @@
     (define/public (get-calories) calories) ))
 
 (define bagel%
-  (let ([name 'bagel])
+  (let ([name 'bagel] [calories 10])
     (class food%
     (super-new)
-    (define/override (get-name) name))))
+    (define/override (get-name) name)
+    (define/override (get-calories) calories) )))
