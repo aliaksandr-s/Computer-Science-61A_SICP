@@ -101,11 +101,6 @@
 ;;; Implementation of thieves for part two
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(define *foods* '(pizza potstickers coffee))
-
-(define (edible? thing)
-  (member? (send thing name) *foods*))
-
 (define thief%
   (class person%
     (super-new)

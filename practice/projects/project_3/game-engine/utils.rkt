@@ -97,3 +97,6 @@
 
 (define (money-left person)
   (send person get-money))
+
+(define (edible? thing)
+  (send thing edible?))

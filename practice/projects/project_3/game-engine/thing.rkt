@@ -14,6 +14,7 @@
     (init-field name
                 [possessor 'no-one])
     (super-new)
+    (define/public (edible?) #f)
     (define/public (get-possessor) possessor)
     (define/public (get-name) name)
     (define/public (type) 'thing)
@@ -41,3 +42,16 @@
             (error "A laptop should have a possessor to connect"))
       (let ([hotspot (send possessor get-place)]) 
            (send hotspot surf this url))) ))
+
+(define food%
+  (class thing%
+    (super-new)
+    (init-field calories)
+    (define/override (edible?) #t)
+    (define/public (get-calories) calories) ))
+
+(define bagel%
+  (let ([name 'bagel])
+    (class food%
+    (super-new)
+    (define/override (get-name) name))))
