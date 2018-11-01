@@ -115,9 +115,9 @@
 (define thief%
   (class person%
     (super-new)
-    (init-field initial-place
-                [behavior 'steal])
-    (inherit-field place)
+    (init-field [behavior 'steal])
+    (inherit-field place strength)
+    (set! strength 50)
     (define/override (type) 'thief)
     (define/override (notice person)
       (if (eq? behavior 'run)
@@ -125,10 +125,26 @@
           (let ((food-things
                  (filter (lambda (thing)
                            (and (edible? thing)
-                                (not (eq? (send thing possessor) this))))
-                         (send place things))))
+                                (not (eq? (send thing get-possessor) this))))
+                         (send place get-things))))
             (when (not (null? food-things))
               (begin
                 (send this take (car food-things))
                 (set! behavior 'run)
                 (send this notice person)) )))) ))
+
+(define police%
+  (class person%
+    (super-new)
+    (init-field jail)
+    (inherit-field strength)
+    (set! strength 100)
+    (define/override (type) 'police)
+    (define/override (notice person) 
+      (when (thief? person)
+            (begin
+              (println "Crime does not pay")
+              (for-each (lambda (thing) (send this take thing)) 
+                (send person get-possessions))
+              (send person go-directly-to jail)
+            )) ) ))

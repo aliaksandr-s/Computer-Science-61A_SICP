@@ -107,3 +107,6 @@
 (define (place-things place)
   (map (lambda (thing) (send thing get-name))
   (send place get-things) ))
+
+(define (thief? person)
+  (eq? (send person type) 'thief))
