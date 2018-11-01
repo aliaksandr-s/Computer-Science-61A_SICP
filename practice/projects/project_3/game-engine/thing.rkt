@@ -16,6 +16,10 @@
     (super-new)
     (define/public (edible?) #f)
     (define/public (get-possessor) possessor)
+    (define/public (may-take? receiver) 
+      (if (> (strength possessor) (strength receiver))
+          #f 
+          this))
     (define/public (get-name) name)
     (define/public (type) 'thing)
     (define/override (thing?) #t)

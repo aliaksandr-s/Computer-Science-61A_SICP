@@ -53,21 +53,24 @@
 	          ((memq thing possessions) 
               (error "You already have it!"))
 	          (else
-	            (announce-take name thing)
-	            (set! possessions (cons thing possessions))
-	       
-              ;; If somebody already has this object...
-              (for-each
-                (lambda (pers)
-                  (when (and (not (eq? pers this)) ; ignore myself
-                             (memq thing (send pers get-possessions)))
-                    (begin
-                      (send pers lose thing)
-                      (have-fit pers))))
-                (send place get-people))
-                  
-              (send thing change-possessor this)
-              'taken)))
+              (when (or (equal? (owner thing) 'no-one) 
+                        (object? (send thing may-take? this))) 
+                        
+                (announce-take name thing)
+                (set! possessions (cons thing possessions))
+          
+                ;; If somebody already has this object...
+                (for-each
+                  (lambda (pers)
+                    (when (and (not (eq? pers this)) ; ignore myself
+                              (memq thing (send pers get-possessions)))
+                      (begin
+                        (send pers lose thing)
+                        (have-fit pers))))
+                  (send place get-people))
+                    
+                (send thing change-possessor this)
+              'taken)) ))
     (define/public (take-all) 
       (let ([things (send place get-things)]) 
            (define available-things 
