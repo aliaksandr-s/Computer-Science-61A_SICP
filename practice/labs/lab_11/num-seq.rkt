@@ -4,6 +4,8 @@
 (require racket/stream)
 (require mischief/stream)
 
+(provide num-seq)
+
 (define (num-seq n)
   (cond [(< n 1) empty-stream] 
          [(odd? n) (stream-cons n (num-seq (+ (* 3 n) 1)))] 
