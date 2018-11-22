@@ -5,19 +5,21 @@
 (require mischief/stream)
 (require racket/trace)
 
-(define (inverted-index folder)
+(define (inverted-index folder min-length)
   (define files-list 
           (map (lambda (file-name) (cons (string-append folder "/" file-name) file-name))
                (map path->string 
                     (directory-list folder))))
 
   (define words-list
+          (filter (lambda (el) (>= (string-length (symbol->string (car el))) min-length))
+          (remove-duplicates
           (foldl append 
                  '()
                   (map (lambda (file)
                       (map (lambda (word) (cons word (cdr file))) 
                             (file->list (car file)))) 
-                        files-list)))
+                        files-list)))))
 
   (define (in-stream? value stream)
     (cond [(stream-empty? stream) #f]
@@ -47,4 +49,13 @@
                      (cons 'smile '("Doc4.txt" "Doc1.txt"))
                     ))
                      
-(check-equal? (stream-take (inverted-index "folder") 5) test-result)
+(check-equal? (stream-take (inverted-index "folder" 1) 5) test-result)
+
+(define test-result-2 (list 
+                     (cons 'seashore '("Doc3.txt"))
+                     (cons 'gigantic '("Doc3.txt" "Doc2.txt"))
+                     (cons 'army '("Doc4.txt" "Doc2.txt" "Doc1.txt"))
+                     (cons 'smile '("Doc4.txt" "Doc1.txt"))
+                    ))
+                     
+(check-equal? (stream-take (inverted-index "folder" 4) 5) test-result-2)
