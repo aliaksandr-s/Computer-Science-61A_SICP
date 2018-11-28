@@ -16,11 +16,15 @@
 (define (mapreduce mapper reducer base-case data)
   ; Map phase
   (define map-results (foldl append '() (map mapper data)))
+  ;;; (println map-results)
+
   ; Sort phase
-  (define grouped (make-hash))                         
+  (define grouped (make-hash))                    
   (for/list ([result map-results])                     
     (hash-update! grouped                              
                   (kv-key result)                      
                   (curry cons (kv-value result)) '())) 
   ; Reduce phase
+
+  ;;; (println grouped)
   (hash-map grouped (lambda (key values) (make-kv-pair key (foldl reducer base-case values)))))
