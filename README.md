@@ -6,6 +6,8 @@ http://inst.eecs.berkeley.edu/~cs61a/su11/
 ## Video lectures: 
 https://archive.org/details/ucberkeley-webcast-PL3E89002AA9B9879E?sort=titleSorter
 
+## Lecture notes:
+https://inst.eecs.berkeley.edu/~cs61a/reader/notes.pdf
 
 ## Course resources:
 https://inst.eecs.berkeley.edu/~cs61a/sp11/
