@@ -347,8 +347,8 @@
         ((cond? exp) (mc-eval (cond->if exp) env))
         ((application? exp)             ; clause from book
          (mc-apply (actual-value (operator exp) env)
-		   (operands exp)
-		   env))
+		               (operands exp)
+		               env))
         (else
          (error "Unknown expression type -- EVAL" exp))))
 
