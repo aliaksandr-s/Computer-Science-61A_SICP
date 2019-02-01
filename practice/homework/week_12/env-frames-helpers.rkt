@@ -11,6 +11,7 @@
 (define make-env cons)
 (define first-frame car)
 (define enclosing-environment cdr)
+(define the-empty-environment '())
 
 (define test-frame (make-frame '(x y) '(1 2)))
 (define test-env (make-env test-frame null))
