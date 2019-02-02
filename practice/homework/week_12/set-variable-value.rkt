@@ -1,7 +1,6 @@
 #lang racket
 
 (require rackunit)
-(require "./env-frames-helpers.rkt")
 (require rnrs/mutable-pairs-6)
 (require compatibility/mlist)
 
@@ -14,7 +13,7 @@
 (define enclosing-environment mcdr)
 (define the-empty-environment '())
 
-(define (lookup-and-assign var val env)
+(define (set-variable-value! var val env)
   (define (env-loop env)
     (define (scan vars vals)
       (cond ((null? vars)
@@ -32,11 +31,11 @@
 (define global-env (make-env (make-frame (mlist 'x 'y) (mlist 3 5)) null))
 (define first-env (make-env (make-frame (mlist 'a 'y) (mlist 1 2)) global-env))
 
-(lookup-and-assign 'y 12 global-env)
-(lookup-and-assign 'y 10 first-env)
+(set-variable-value! 'y 12 global-env)
+(set-variable-value! 'y 10 first-env)
 
 (check-equal? global-env (make-env (make-frame (mlist 'x 'y) (mlist 3 12)) null))
 (check-equal? first-env (make-env (make-frame (mlist 'a 'y) (mlist 1 10)) global-env))
 (check-exn
    exn:fail?
-   (lambda () (lookup-and-assign 'z first-env)))
+   (lambda () (set-variable-value! 'z first-env)))
