@@ -1,7 +1,7 @@
 #lang racket
 
 (require rackunit)
-(require "./env-frames-helpers.rkt")
+(require "../../helpers/evaluators/env-frames-helpers.rkt")
 
 (define (lookup-variable-value var start-env)
   (cond [(and (empty? (frame-variables start-env)) 

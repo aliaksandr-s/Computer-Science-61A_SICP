@@ -4,14 +4,7 @@
 (require rnrs/mutable-pairs-6)
 (require compatibility/mlist)
 
-(define make-frame mcons)
-(define frame-variables mcar)
-(define frame-values mcdr)
-
-(define make-env mcons)
-(define first-frame mcar)
-(define enclosing-environment mcdr)
-(define the-empty-environment '())
+(require "../../helpers/evaluators/env-frames-helpers.rkt")
 
 (define (extend-environment vars vals base-env)
   (if (= (mlength vars) (mlength vals))
