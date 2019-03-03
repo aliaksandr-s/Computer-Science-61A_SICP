@@ -1,8 +1,6 @@
 #lang racket
 (require "../../helpers/evaluators/qeury-eval.rkt")
 
-;; Exercise 4.55
-
 ;;; a
 (run-query '(supervisor ?name (Bitdiddle Ben)))
 
